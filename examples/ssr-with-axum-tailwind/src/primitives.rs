@@ -515,7 +515,7 @@ fn AccordionDemo() -> impl IntoView {
 
 #[component]
 fn AccordionItemDemo(
-  #[prop(into)] value: MaybeSignal<String>,
+  #[prop(into)] value: Signal<String>,
   children: ChildrenFn,
 ) -> impl IntoView {
   view! {

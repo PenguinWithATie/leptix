@@ -16,7 +16,7 @@ struct ProgressContextValue {
 #[component]
 pub fn ProgressRoot(
   #[prop(optional, into)] value: MaybeProp<f64>,
-  #[prop(default=100.0f64.into(), into)] max: MaybeSignal<f64>,
+  #[prop(default=100.0f64.into(), into)] max: Signal<f64>,
 
   #[prop(optional)] get_value_label: Option<Callback<(f64, f64), String>>,
 

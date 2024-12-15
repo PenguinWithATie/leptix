@@ -46,11 +46,11 @@ impl ToggleGroupMultiple {
 pub fn ToggleGroupRoot(
   kind: ToggleGroupKind,
 
-  #[prop(optional, into)] disabled: MaybeSignal<bool>,
-  #[prop(default=true.into(), into)] roving_focus: MaybeSignal<bool>,
-  #[prop(default=true.into(), into)] should_loop: MaybeSignal<bool>,
-  #[prop(optional, into)] orientation: MaybeSignal<Orientation>,
-  #[prop(optional, into)] direction: MaybeSignal<Direction>,
+  #[prop(optional, into)] disabled: Signal<bool>,
+  #[prop(default=true.into(), into)] roving_focus: Signal<bool>,
+  #[prop(default=true.into(), into)] should_loop: Signal<bool>,
+  #[prop(optional, into)] orientation: Signal<Orientation>,
+  #[prop(optional, into)] direction: Signal<Direction>,
 
   #[prop(optional)] node_ref: NodeRef<Div>,
   children: ChildrenFn,
@@ -117,11 +117,11 @@ struct ToggleGroupValueContextValue {
 
 #[component]
 fn ToggleGroupSingleImpl(
-  disabled: MaybeSignal<bool>,
-  roving_focus: MaybeSignal<bool>,
-  should_loop: MaybeSignal<bool>,
-  orientation: MaybeSignal<Orientation>,
-  direction: MaybeSignal<Direction>,
+  disabled: Signal<bool>,
+  roving_focus: Signal<bool>,
+  should_loop: Signal<bool>,
+  orientation: Signal<Orientation>,
+  direction: Signal<Direction>,
   #[prop(optional, into)] value: MaybeProp<String>,
   #[prop(optional, into)] default_value: MaybeProp<String>,
 
@@ -166,11 +166,11 @@ fn ToggleGroupSingleImpl(
 
 #[component]
 fn ToggleGroupMultipleImpl(
-  disabled: MaybeSignal<bool>,
-  roving_focus: MaybeSignal<bool>,
-  should_loop: MaybeSignal<bool>,
-  orientation: MaybeSignal<Orientation>,
-  direction: MaybeSignal<Direction>,
+  disabled: Signal<bool>,
+  roving_focus: Signal<bool>,
+  should_loop: Signal<bool>,
+  orientation: Signal<Orientation>,
+  direction: Signal<Direction>,
   #[prop(optional, into)] value: MaybeProp<Vec<String>>,
   #[prop(optional, into)] default_value: MaybeProp<Vec<String>>,
 
@@ -238,11 +238,11 @@ struct ToggleGroupStateContextValue {
 
 #[component]
 fn ToggleGroup(
-  disabled: MaybeSignal<bool>,
-  roving_focus: MaybeSignal<bool>,
-  should_loop: MaybeSignal<bool>,
-  orientation: MaybeSignal<Orientation>,
-  direction: MaybeSignal<Direction>,
+  disabled: Signal<bool>,
+  roving_focus: Signal<bool>,
+  should_loop: Signal<bool>,
+  orientation: Signal<Orientation>,
+  direction: Signal<Direction>,
 
   #[prop(optional)] node_ref: NodeRef<Div>,
   children: ChildrenFn,
@@ -295,8 +295,8 @@ fn ToggleGroup(
 
 #[component]
 pub fn ToggleGroupItem(
-  #[prop(optional, into)] disabled: MaybeSignal<bool>,
-  #[prop(into)] value: MaybeSignal<String>,
+  #[prop(optional, into)] disabled: Signal<bool>,
+  #[prop(into)] value: Signal<String>,
 
   #[prop(optional)] node_ref: NodeRef<Button>,
   children: ChildrenFn,

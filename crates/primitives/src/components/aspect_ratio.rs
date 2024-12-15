@@ -4,7 +4,7 @@ use crate::primitive::Primitive;
 
 #[component]
 pub fn AspectRatioRoot(
-  #[prop(default=1.0f64.into(), into)] ratio: MaybeSignal<f64>,
+  #[prop(default=1.0f64.into(), into)] ratio: Signal<f64>,
 
   #[prop(optional)] node_ref: NodeRef<Div>,
   children: ChildrenFn,

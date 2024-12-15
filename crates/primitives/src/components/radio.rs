@@ -21,13 +21,13 @@ struct RadioContextValue {
 
 #[component]
 pub fn Radio(
-  #[prop(optional, into)] value: MaybeSignal<String>,
-  #[prop(optional, into)] checked: MaybeSignal<bool>,
-  #[prop(optional, into)] required: MaybeSignal<bool>,
+  #[prop(optional, into)] value: Signal<String>,
+  #[prop(optional, into)] checked: Signal<bool>,
+  #[prop(optional, into)] required: Signal<bool>,
   #[prop(default=Callback::new(|_|{}), into)] on_check: Callback<()>,
   #[prop(default=Callback::new(|_|{}), into)] on_click: Callback<MouseEvent>,
 
-  #[prop(optional, into)] disabled: MaybeSignal<bool>,
+  #[prop(optional, into)] disabled: Signal<bool>,
   #[prop(optional, into)] name: MaybeProp<String>,
 
   #[prop(optional)] node_ref: NodeRef<Button>,
@@ -105,7 +105,7 @@ pub fn Radio(
 
 #[component]
 pub fn RadioIndicator(
-  #[prop(optional, into)] force_mount: MaybeSignal<bool>,
+  #[prop(optional, into)] force_mount: Signal<bool>,
 
   #[prop(optional)] node_ref: NodeRef<Span>,
   children: ChildrenFn,
@@ -146,7 +146,7 @@ fn BubbleInput(
   checked: Signal<bool>,
   bubbles: Signal<bool>,
   #[prop(into)] name: MaybeProp<String>,
-  value: MaybeSignal<String>,
+  value: Signal<String>,
   required: Signal<bool>,
   disabled: Signal<bool>,
   control: NodeRef<Button>,

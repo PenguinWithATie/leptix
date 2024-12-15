@@ -27,9 +27,9 @@ struct CollapsibleContextValue {
 
 #[component]
 pub fn CollapsibleRoot(
-  #[prop(optional, into)] open: MaybeSignal<bool>,
-  #[prop(optional, into)] default_open: MaybeSignal<bool>,
-  #[prop(optional, into)] disabled: MaybeSignal<bool>,
+  #[prop(optional, into)] open: Signal<bool>,
+  #[prop(optional, into)] default_open: Signal<bool>,
+  #[prop(optional, into)] disabled: Signal<bool>,
 
   #[prop(default=Callback::new(|_|{}), into)] on_open_change: Callback<bool>,
   #[prop(default=Callback::new(|_|{}), into)] on_click: Callback<MouseEvent>,
@@ -115,7 +115,7 @@ pub fn CollapsibleTrigger(
 
 #[component]
 pub fn CollapsibleContent(
-  #[prop(optional, into)] force_mount: MaybeSignal<bool>,
+  #[prop(optional, into)] force_mount: Signal<bool>,
 
   #[prop(optional)] node_ref: NodeRef<Div>,
   children: ChildrenFn,

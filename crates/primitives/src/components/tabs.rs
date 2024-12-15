@@ -37,9 +37,9 @@ pub enum ActivationMode {
 pub fn TabsRoot(
   #[prop(optional, into)] value: MaybeProp<String>,
   #[prop(optional, into)] default_value: MaybeProp<String>,
-  #[prop(optional, into)] orientation: MaybeSignal<Orientation>,
-  #[prop(optional, into)] direction: MaybeSignal<Direction>,
-  #[prop(optional, into)] activation_mode: MaybeSignal<ActivationMode>,
+  #[prop(optional, into)] orientation: Signal<Orientation>,
+  #[prop(optional, into)] direction: Signal<Direction>,
+  #[prop(optional, into)] activation_mode: Signal<ActivationMode>,
 
   #[prop(default=Callback::new(|_|{}), into)] on_value_change: Callback<String>,
 
@@ -78,7 +78,7 @@ pub fn TabsRoot(
 
 #[component]
 pub fn TabsList(
-  #[prop(default=true.into(), into)] should_loop: MaybeSignal<bool>,
+  #[prop(default=true.into(), into)] should_loop: Signal<bool>,
 
   #[prop(optional)] node_ref: NodeRef<Div>,
   children: ChildrenFn,
@@ -116,8 +116,8 @@ pub fn TabsList(
 
 #[component]
 pub fn TabsTrigger(
-  #[prop(optional, into)] value: MaybeSignal<String>,
-  #[prop(optional, into)] disabled: MaybeSignal<bool>,
+  #[prop(optional, into)] value: Signal<String>,
+  #[prop(optional, into)] disabled: Signal<bool>,
 
   #[prop(default=Callback::new(|_|{}), into)] on_mouse_down: Callback<MouseEvent>,
   #[prop(default=Callback::new(|_|{}), into)] on_key_down: Callback<KeyboardEvent>,
@@ -209,8 +209,8 @@ pub fn TabsTrigger(
 
 #[component]
 pub fn TabsContent(
-  #[prop(optional, into)] value: MaybeSignal<String>,
-  #[prop(optional, into)] force_mount: MaybeSignal<bool>,
+  #[prop(optional, into)] value: Signal<String>,
+  #[prop(optional, into)] force_mount: Signal<bool>,
 
   #[prop(optional)] node_ref: NodeRef<Div>,
   children: ChildrenFn,

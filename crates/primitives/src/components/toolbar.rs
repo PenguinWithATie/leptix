@@ -23,9 +23,9 @@ struct ToolbarContextValue {
 
 #[component]
 pub fn ToolbarRoot(
-  #[prop(optional, into)] orientation: MaybeSignal<Orientation>,
-  #[prop(optional, into)] direction: MaybeSignal<Direction>,
-  #[prop(default=true.into(), into)] should_loop: MaybeSignal<bool>,
+  #[prop(optional, into)] orientation: Signal<Orientation>,
+  #[prop(optional, into)] direction: Signal<Direction>,
+  #[prop(default=true.into(), into)] should_loop: Signal<bool>,
 
   #[prop(optional)] node_ref: NodeRef<Div>,
   children: ChildrenFn,
@@ -90,7 +90,7 @@ pub fn ToolbarSeparator(
 
 #[component]
 pub fn ToolbarButton(
-  #[prop(optional, into)] disabled: MaybeSignal<bool>,
+  #[prop(optional, into)] disabled: Signal<bool>,
 
   #[prop(optional)] node_ref: NodeRef<Button>,
   children: ChildrenFn,
@@ -159,9 +159,9 @@ pub fn ToolbarLink(
 pub fn ToolbarToggleGroup(
   kind: ToggleGroupKind,
 
-  #[prop(optional, into)] disabled: MaybeSignal<bool>,
-  #[prop(optional, into)] orientation: MaybeSignal<Orientation>,
-  #[prop(optional, into)] direction: MaybeSignal<Direction>,
+  #[prop(optional, into)] disabled: Signal<bool>,
+  #[prop(optional, into)] orientation: Signal<Orientation>,
+  #[prop(optional, into)] direction: Signal<Direction>,
 
   #[prop(optional)] node_ref: NodeRef<Div>,
   children: ChildrenFn,
@@ -191,8 +191,8 @@ pub fn ToolbarToggleGroup(
 
 #[component]
 pub fn ToolbarToggleItem(
-  #[prop(optional, into)] disabled: MaybeSignal<bool>,
-  #[prop(into)] value: MaybeSignal<String>,
+  #[prop(optional, into)] disabled: Signal<bool>,
+  #[prop(into)] value: Signal<String>,
 
   #[prop(optional)] node_ref: NodeRef<Button>,
   children: ChildrenFn,

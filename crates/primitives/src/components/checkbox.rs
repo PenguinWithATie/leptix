@@ -33,8 +33,8 @@ struct CheckboxValueContext {
 
 #[component]
 pub fn CheckboxRoot(
-  #[prop(optional, into)] required: MaybeSignal<bool>,
-  #[prop(optional, into)] disabled: MaybeSignal<bool>,
+  #[prop(optional, into)] required: Signal<bool>,
+  #[prop(optional, into)] disabled: Signal<bool>,
   #[prop(optional, into)] checked: MaybeProp<CheckedState>,
   #[prop(optional, into)] default_checked: MaybeProp<CheckedState>,
 
@@ -184,7 +184,7 @@ pub fn CheckboxRoot(
 
 #[component]
 pub fn CheckboxIndicator(
-  #[prop(optional, into)] force_mount: MaybeSignal<bool>,
+  #[prop(optional, into)] force_mount: Signal<bool>,
 
   #[prop(optional)] node_ref: NodeRef<Span>,
   children: ChildrenFn,

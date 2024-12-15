@@ -27,13 +27,13 @@ struct RadioGroupContextValue {
 #[component]
 pub fn RadioGroupRoot(
   #[prop(optional, into)] name: MaybeProp<String>,
-  #[prop(optional, into)] required: MaybeSignal<bool>,
-  #[prop(optional, into)] disabled: MaybeSignal<bool>,
-  #[prop(optional, into)] should_loop: MaybeSignal<bool>,
+  #[prop(optional, into)] required: Signal<bool>,
+  #[prop(optional, into)] disabled: Signal<bool>,
+  #[prop(optional, into)] should_loop: Signal<bool>,
   #[prop(optional, into)] value: MaybeProp<String>,
   #[prop(optional, into)] default_value: MaybeProp<String>,
-  #[prop(optional, into)] orientation: MaybeSignal<Orientation>,
-  #[prop(optional, into)] direction: MaybeSignal<Direction>,
+  #[prop(optional, into)] orientation: Signal<Orientation>,
+  #[prop(optional, into)] direction: Signal<Direction>,
 
   #[prop(default=Callback::new(|_|{}), into)] on_value_change: Callback<String>,
 
@@ -86,8 +86,8 @@ pub fn RadioGroupRoot(
 
 #[component]
 pub fn RadioGroupItem(
-  #[prop(optional, into)] disabled: MaybeSignal<bool>,
-  #[prop(into)] value: MaybeSignal<String>,
+  #[prop(optional, into)] disabled: Signal<bool>,
+  #[prop(into)] value: Signal<String>,
 
   #[prop(default=Callback::new(|_|{}), into)] on_focus: Callback<FocusEvent>,
   #[prop(default=Callback::new(|_|{}), into)] on_key_down: Callback<KeyboardEvent>,

@@ -49,7 +49,7 @@ pub enum ScrollAreaKind {
 
 #[derive(Clone)]
 pub struct ScrollAreaContextValue {
-  kind: MaybeSignal<ScrollAreaKind>,
+  kind: Signal<ScrollAreaKind>,
   direction: Signal<Direction>,
   scroll_hide_delay: Signal<u64>,
   scroll_area: NodeRef<Div>,
@@ -71,9 +71,9 @@ pub struct ScrollAreaContextValue {
 
 #[component]
 pub fn ScrollAreaRoot(
-  #[prop(optional, into)] kind: MaybeSignal<ScrollAreaKind>,
-  #[prop(optional, into)] direction: MaybeSignal<Direction>,
-  #[prop(default=600.into(), into)] scroll_hide_delay: MaybeSignal<u64>,
+  #[prop(optional, into)] kind: Signal<ScrollAreaKind>,
+  #[prop(optional, into)] direction: Signal<Direction>,
+  #[prop(default=600.into(), into)] scroll_hide_delay: Signal<u64>,
 
   #[prop(optional)] node_ref: NodeRef<Div>,
   children: ChildrenFn,
@@ -233,8 +233,8 @@ pub fn ScrollAreaViewport(
 
 #[component]
 pub fn ScrollAreaScrollbar(
-  #[prop(optional, into)] force_mount: MaybeSignal<bool>,
-  #[prop(optional, into)] orientation: MaybeSignal<Orientation>,
+  #[prop(optional, into)] force_mount: Signal<bool>,
+  #[prop(optional, into)] orientation: Signal<Orientation>,
 
   #[prop(optional)] node_ref: NodeRef<Div>,
   children: ChildrenFn,
@@ -311,8 +311,8 @@ pub fn ScrollAreaScrollbar(
 
 #[component]
 fn ScrollAreaScrollbarHover(
-  force_mount: MaybeSignal<bool>,
-  orientation: MaybeSignal<Orientation>,
+  force_mount: Signal<bool>,
+  orientation: Signal<Orientation>,
 
   #[prop(optional)] node_ref: NodeRef<Div>,
   children: ChildrenFn,
@@ -385,8 +385,8 @@ fn ScrollAreaScrollbarHover(
 
 #[component]
 fn ScrollAreaScrollbarScroll(
-  force_mount: MaybeSignal<bool>,
-  orientation: MaybeSignal<Orientation>,
+  force_mount: Signal<bool>,
+  orientation: Signal<Orientation>,
 
   #[prop(optional)] node_ref: NodeRef<Div>,
   children: ChildrenFn,
@@ -487,8 +487,8 @@ fn ScrollAreaScrollbarScroll(
 
 #[component]
 fn ScrollAreaScrollbarAuto(
-  force_mount: MaybeSignal<bool>,
-  orientation: MaybeSignal<Orientation>,
+  force_mount: Signal<bool>,
+  orientation: Signal<Orientation>,
 
   #[prop(optional)] node_ref: NodeRef<Div>,
   children: ChildrenFn,
@@ -549,7 +549,7 @@ fn ScrollAreaScrollbarAuto(
 
 #[component]
 fn ScrollAreaScrollbarVisible(
-  orientation: MaybeSignal<Orientation>,
+  orientation: Signal<Orientation>,
 
   #[prop(default=Callback::new(|_|{}), into)] on_pointer_enter: Callback<()>,
   #[prop(default=Callback::new(|_|{}), into)] on_pointer_leave: Callback<()>,
@@ -677,8 +677,8 @@ fn ScrollAreaScrollbarVisible(
 
 #[component]
 fn ScrollAreaScrollbarX(
-  sizes: MaybeSignal<Sizes>,
-  has_thumb: MaybeSignal<bool>,
+  sizes: Signal<Sizes>,
+  has_thumb: Signal<bool>,
 
   on_sizes_change: Callback<Sizes>,
   on_thumb_change: Callback<HtmlDivElement>,
@@ -797,8 +797,8 @@ fn ScrollAreaScrollbarY(
   #[prop(default=Callback::new(|_|{}), into)] on_pointer_enter: Callback<()>,
   #[prop(default=Callback::new(|_|{}), into)] on_pointer_leave: Callback<()>,
 
-  sizes: MaybeSignal<Sizes>,
-  has_thumb: MaybeSignal<bool>,
+  sizes: Signal<Sizes>,
+  has_thumb: Signal<bool>,
   on_sizes_change: Callback<Sizes>,
   on_thumb_change: Callback<HtmlDivElement>,
   on_thumb_pointer_up: Callback<()>,
@@ -1115,7 +1115,7 @@ fn ScrollAreaScrollbarImpl(
 
 #[component]
 pub fn ScrollAreaThumb(
-  #[prop(optional)] force_mount: MaybeSignal<bool>,
+  #[prop(optional)] force_mount: Signal<bool>,
 
   #[prop(optional)] node_ref: NodeRef<Div>,
   #[prop(optional)] children: Option<ChildrenFn>,

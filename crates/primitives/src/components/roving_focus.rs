@@ -74,10 +74,10 @@ impl EventDescriptor for OnEntryFocus {
 pub(crate) fn RovingFocusGroup(
   #[prop(optional, into)] orientation: MaybeProp<Orientation>,
   #[prop(optional, into)] direction: MaybeProp<Direction>,
-  #[prop(optional, into)] should_loop: MaybeSignal<bool>,
+  #[prop(optional, into)] should_loop: Signal<bool>,
   #[prop(optional, into)] current_tab_stop_id: MaybeProp<String>,
   #[prop(optional, into)] default_current_tab_stop_id: MaybeProp<String>,
-  #[prop(optional, into)] prevent_scroll_on_entry_focus: MaybeSignal<bool>,
+  #[prop(optional, into)] prevent_scroll_on_entry_focus: Signal<bool>,
 
   #[prop(default=Callback::new(|_|{}), into)] on_current_tab_stop_id_change: Callback<
     Option<String>,
@@ -210,8 +210,8 @@ pub(crate) fn RovingFocusGroup(
 #[component]
 pub(crate) fn RovingFocusGroupItem(
   #[prop(optional, into)] tab_stop_id: MaybeProp<String>,
-  #[prop(optional, into)] focusable: MaybeSignal<bool>,
-  #[prop(optional, into)] active: MaybeSignal<bool>,
+  #[prop(optional, into)] focusable: Signal<bool>,
+  #[prop(optional, into)] active: Signal<bool>,
 
   #[prop(default=Callback::new(|_|{}), into)] on_mouse_down: Callback<MouseEvent>,
   #[prop(default=Callback::new(|_|{}), into)] on_focus: Callback<FocusEvent>,

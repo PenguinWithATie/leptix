@@ -7,8 +7,8 @@ use crate::{primitive::Primitive, Orientation};
 
 #[component]
 pub fn SeparatorRoot(
-  #[prop(optional, into)] orientation: MaybeSignal<Orientation>,
-  #[prop(optional, into)] decorative: MaybeSignal<bool>,
+  #[prop(optional, into)] orientation: Signal<Orientation>,
+  #[prop(optional, into)] decorative: Signal<bool>,
 
   #[prop(optional)] node_ref: NodeRef<Div>,
   #[prop(optional)] children: Option<ChildrenFn>,

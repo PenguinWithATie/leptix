@@ -29,8 +29,8 @@ pub fn SwitchRoot(
   #[prop(optional, into)] default_checked: MaybeProp<bool>,
   #[prop(optional, into)] value: MaybeProp<String>,
   #[prop(optional, into)] name: MaybeProp<String>,
-  #[prop(optional, into)] disabled: MaybeSignal<bool>,
-  #[prop(optional, into)] required: MaybeSignal<bool>,
+  #[prop(optional, into)] disabled: Signal<bool>,
+  #[prop(optional, into)] required: Signal<bool>,
 
   #[prop(default=Callback::new(|_|{}), into)] on_checked_change: Callback<bool>,
   #[prop(default=Callback::new(|_|{}), into)] on_click: Callback<MouseEvent>,

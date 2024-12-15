@@ -86,7 +86,7 @@ pub fn AvatarImage(
 
 #[component]
 pub fn AvatarFallback(
-  #[prop(optional, into)] delay_ms: MaybeSignal<f64>,
+  #[prop(optional, into)] delay_ms: Signal<f64>,
 
   #[prop(optional)] node_ref: NodeRef<Span>,
   children: ChildrenFn,

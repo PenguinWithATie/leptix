@@ -27,7 +27,7 @@ pub enum AccordionKind {
     value: MaybeProp<String>,
     default_value: MaybeProp<String>,
     on_value_change: Option<Callback<String>>,
-    collapsible: MaybeSignal<bool>,
+    collapsible: Signal<bool>,
   },
   Multiple {
     value: MaybeProp<Vec<String>>,
@@ -60,16 +60,16 @@ struct AccordionContextValue {
 
 #[derive(Clone)]
 struct AccordionCollapsibleContextValue {
-  collapsible: MaybeSignal<bool>,
+  collapsible: Signal<bool>,
 }
 
 #[component]
 pub fn AccordionRoot(
   kind: AccordionKind,
 
-  #[prop(optional, into)] disabled: MaybeSignal<bool>,
-  #[prop(optional, into)] direction: MaybeSignal<Direction>,
-  #[prop(default=Orientation::Vertical.into(), into)] orientation: MaybeSignal<Orientation>,
+  #[prop(optional, into)] disabled: Signal<bool>,
+  #[prop(optional, into)] direction: Signal<Direction>,
+  #[prop(default=Orientation::Vertical.into(), into)] orientation: Signal<Orientation>,
 
   #[prop(optional)] node_ref: NodeRef<Div>,
   children: ChildrenFn,
@@ -164,7 +164,7 @@ fn AccordionSingleImpl(
   });
 
   provide_context(AccordionCollapsibleContextValue {
-    collapsible: Signal::derive(move || collapsible.get()).into(),
+    collapsible: Signal::derive(move || collapsible.get()),
   });
 
   view! {
@@ -402,8 +402,8 @@ struct AccordionItemContextValue {
 
 #[component]
 pub fn AccordionItem(
-  #[prop(optional, into)] disabled: MaybeSignal<bool>,
-  #[prop(into)] value: MaybeSignal<String>,
+  #[prop(optional, into)] disabled: Signal<bool>,
+  #[prop(into)] value: Signal<String>,
 
   #[prop(optional)] node_ref: NodeRef<Div>,
   children: ChildrenFn,

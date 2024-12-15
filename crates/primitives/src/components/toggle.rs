@@ -13,7 +13,7 @@ use crate::{
 pub fn ToggleRoot(
   #[prop(optional, into)] pressed: MaybeProp<bool>,
   #[prop(optional, into)] default_pressed: MaybeProp<bool>,
-  #[prop(optional, into)] disabled: MaybeSignal<bool>,
+  #[prop(optional, into)] disabled: Signal<bool>,
 
   #[prop(default=Callback::new(|_|{}), into)] on_pressed_changed: Callback<bool>,
   #[prop(default=Callback::new(|_|{}), into)] on_click: Callback<MouseEvent>,
