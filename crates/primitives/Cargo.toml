@@ -13,8 +13,8 @@ exclude = ["README.md", "assets/*"]
 categories = ["accessibility", "web-programming"]
 
 [dependencies]
-leptos = "0.7.0-gamma"
-leptos-use = "0.14.0-gamma"
+leptos = "0.7"
+leptos-use = "0.14"
 derive_more = { version = "1.0", features = ["full"] }
 nanoid = "0.4.0"
 strum = { version = "0.26", features = ["derive"] }
