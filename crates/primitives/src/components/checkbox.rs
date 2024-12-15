@@ -47,7 +47,7 @@ pub fn CheckboxRoot(
 
   #[prop(optional)] as_child: MaybeProp<bool>,
 ) -> impl IntoView {
-  let has_consumer_stropped_propagation = StoredValue::new(false);
+  let _has_consumer_stropped_propagation = StoredValue::new(false);
 
   let (is_form_control, set_is_form_control) = signal(true);
 
@@ -85,18 +85,18 @@ pub fn CheckboxRoot(
 
     _ = form.add_event_listener_with_callback("reset", reset.as_ref().unchecked_ref());
 
-    Owner::current().map(|owner| {
+    if let Some(owner) = Owner::current() {
       owner.with_cleanup(move || {
         _ = form.remove_event_listener_with_callback("reset", reset.as_ref().unchecked_ref());
 
         reset.forget();
       })
-    });
+    }
   });
 
   Effect::new(move |_| {
-    set_is_form_control.set(if let Some(foo) = node_ref.get() {
-      foo.closest("form").ok().flatten().is_some()
+    set_is_form_control.set(if let Some(foobar) = node_ref.get() {
+      foobar.closest("form").ok().flatten().is_some()
     } else {
       true
     });
@@ -218,7 +218,7 @@ pub fn CheckboxIndicator(
           CheckedState::Indeterminate => "indeterminate",
         }
         {..}
-        disabled=disabled.clone()
+        disabled=disabled
       >
         {children.with_value(|children| children())}
       </Primitive>
@@ -255,7 +255,7 @@ fn BubbleInput(
       .ok()?;
 
       if prev_checked.get() != checked.get() {
-        let mut ev_options = EventInit::new();
+        let ev_options = EventInit::new();
         ev_options.set_bubbles(bubbles.get());
 
         let ev = Event::new_with_event_init_dict("click", &ev_options).ok()?;

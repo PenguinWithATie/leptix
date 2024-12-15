@@ -1,6 +1,5 @@
 use leptos::{
   html::{self, Button, Div},
-  leptos_dom::helpers::AnimationFrameRequestHandle,
   logging,
   prelude::*,
 };

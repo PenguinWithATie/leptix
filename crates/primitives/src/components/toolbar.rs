@@ -207,7 +207,7 @@ pub fn ToolbarToggleItem(
         node_ref={node_ref}
         as_child={as_child}
         disabled=Signal::derive(move || disabled.get())
-        value=value.clone()
+        value
       >
         {children.with_value(|children| children())}
       </ToggleGroupItem>

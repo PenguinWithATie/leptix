@@ -416,7 +416,7 @@ pub fn AccordionItem(
     .expect("AccordionItem must be in an AccordionRoot component");
 
   let trigger_id = create_id();
-  let is_open_value = value.clone();
+  let is_open_value = value;
   let is_open = Signal::derive(move || {
     value_context
       .value
@@ -432,7 +432,7 @@ pub fn AccordionItem(
     trigger_id: Signal::derive(move || trigger_id.get()),
   });
 
-  let open_value = value.clone();
+  let open_value = value;
   view! {
     <CollapsibleRoot
       open={is_open}

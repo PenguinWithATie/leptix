@@ -136,13 +136,11 @@ pub fn SliderRoot(
   let handle_slide_end = Callback::new(move |_: ()| {
     let prev_value = value_index_to_change
       .get_value()
-      .map(|index| values_before_slide_start.get_value().get(index).cloned())
-      .flatten();
+      .and_then(|index| values_before_slide_start.get_value().get(index).cloned());
 
     let next_value = value_index_to_change
       .get_value()
-      .map(|index| values.get().get(index).cloned())
-      .flatten();
+      .and_then(|index| values.get().get(index).cloned());
 
     let has_changed = next_value != prev_value;
 
@@ -798,7 +796,7 @@ pub fn SliderThumb(
       .unwrap_or(0.)
   });
 
-  let label = Signal::derive(move || {
+  let _label = Signal::derive(move || {
     index
       .get()
       .and_then(|index| get_label(index, context.values.get().len()))
@@ -837,7 +835,7 @@ pub fn SliderThumb(
       thumbs.push(node.clone());
     });
 
-    Owner::current().map(|owner| {
+    if let Some(owner) = Owner::current() {
       owner.with_cleanup(move || {
         // let Some(node) = node_ref.get() else {
         //   return;
@@ -854,7 +852,7 @@ pub fn SliderThumb(
           }
         });
       })
-    });
+    }
   });
 
   Effect::new(move |_| {
@@ -862,7 +860,7 @@ pub fn SliderThumb(
       return;
     };
 
-    node.on(focus, move |_| {
+    let _ = node.on(focus, move |_| {
       context.value_index_to_change.set_value(index.get());
     });
 
@@ -886,7 +884,7 @@ pub fn SliderThumb(
     }
   });
 
-  let label_name = name.clone();
+  let label_name = name;
 
   view! {
     // <span style:transform="var(--primitive-slider-thumb-transform)" style:position="absolute" node_ref=span_ref>
@@ -911,7 +909,7 @@ pub fn SliderThumb(
 
      <Show when=move || is_form_control.get()>
        <BubbleInput
-          name=name.clone()
+          name
           value=Signal::derive(move || value.get().unwrap_or_default())
        />
      </Show>
@@ -1001,8 +999,8 @@ fn convert_value_to_percentage(value: f64, min: f64, max: f64) -> f64 {
   percentage.clamp(0., 100.)
 }
 
-fn get_next_sorted_values(prev_values: &Vec<f64>, next_value: f64, at_index: usize) -> Vec<f64> {
-  let mut next_values = prev_values.clone();
+fn get_next_sorted_values(prev_values: &[f64], next_value: f64, at_index: usize) -> Vec<f64> {
+  let mut next_values = prev_values.to_owned();
   if let Some(next_values) = next_values.get_mut(at_index) {
     *next_values = next_value;
   };

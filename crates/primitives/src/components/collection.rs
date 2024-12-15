@@ -50,7 +50,7 @@ where
   //let item_ref = NodeRef::<ItemElement>::new();
 
   Effect::new(move |_| {
-    if let Some(node) = item_ref.get() {
+    if let Some(_node) = item_ref.get() {
       let id = CollectionItemId::new();
 
       // node.attr(("data-primitive-collection-item", id.0.as_str()));

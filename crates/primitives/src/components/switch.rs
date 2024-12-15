@@ -63,7 +63,7 @@ pub fn SwitchRoot(
     disabled: Signal::derive(move || disabled.get()),
   });
 
-  let attr_value = value.clone();
+  let attr_value = value;
 
   view! {
     <Primitive
@@ -105,8 +105,8 @@ pub fn SwitchRoot(
       <BubbleInput
         checked=Signal::derive(move || checked.get().unwrap_or(false))
         bubbles=Signal::derive(move || !has_consumer_stopped_propagation.get_value())
-        name=name.clone()
-        value=value.clone()
+        name
+        value
         disabled=Signal::derive(move || disabled.get())
         required=Signal::derive(move || required.get())
         control=node_ref

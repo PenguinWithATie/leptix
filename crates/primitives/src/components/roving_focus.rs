@@ -6,7 +6,6 @@ use leptos::{
   html::{self, Div, Span},
   prelude::*,
 };
-use leptos_use::use_event_listener;
 use wasm_bindgen::JsCast;
 use web_sys::{Event, FocusEvent, KeyboardEvent, MouseEvent};
 

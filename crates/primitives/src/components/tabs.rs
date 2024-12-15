@@ -136,15 +136,15 @@ pub fn TabsTrigger(
     ..
   } = use_context().expect("TabsTrigger must be used in a TabsRoot component");
 
-  let trigger_value = value.clone();
+  let trigger_value = value;
   let trigger_id =
     Signal::derive(move || format!("{}-trigger-{}", base_id.get(), trigger_value.get()));
 
-  let content_value = value.clone();
+  let content_value = value;
   let content_id =
     Signal::derive(move || format!("{}-content-{}", base_id.get(), content_value.get()));
 
-  let is_selected_value = value.clone();
+  let is_selected_value = value;
   let is_selected = Signal::derive(move || context_value.get() == Some(is_selected_value.get()));
 
   let children = StoredValue::new(children);
@@ -224,14 +224,14 @@ pub fn TabsContent(
     ..
   } = use_context().expect("TabsContent must be used in a TabsRoot component");
 
-  let trigger_value = value.clone();
+  let trigger_value = value;
   let trigger_id =
     Signal::derive(move || format!("{}-trigger-{}", base_id.get(), trigger_value.get()));
-  let content_value = value.clone();
+  let content_value = value;
   let content_id =
     Signal::derive(move || format!("{}-content-{}", base_id.get(), content_value.get()));
 
-  let is_selected_value = value.clone();
+  let is_selected_value = value;
   let is_selected = Signal::derive(move || context_value.get() == Some(is_selected_value.get()));
   let is_mount_animation_prevented = StoredValue::new(is_selected.get_untracked());
 
@@ -284,9 +284,9 @@ pub fn TabsContent(
         attr:data-orientation=move || orientation.get().to_string()
         {..}
         role="tabpanel"
-        aria-labelledby=trigger_id.clone()
+        aria-labelledby=trigger_id
         hidden=move || !is_present.get()
-        id=content_id.clone()
+        id=content_id
         tabindex=0
       >
         {children.with_value(|children| children())}

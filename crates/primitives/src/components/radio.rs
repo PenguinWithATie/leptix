@@ -69,7 +69,7 @@ pub fn Radio(
       role="radio"
       aria-checked=move || checked.get().to_string()
       disabled=move || disabled.get().then_some("")
-      value=value.clone()
+      value=value
       on:click=move |ev: MouseEvent| {
         on_click.run(ev.clone());
 
@@ -93,8 +93,8 @@ pub fn Radio(
       <BubbleInput
         checked=Signal::derive(move || checked.get())
         bubbles=Signal::derive(move || !has_consumer_stopped_propagation.get_value())
-        name=name.clone()
-        value=value.clone()
+        name
+        value
         required=Signal::derive(move || required.get())
         disabled=Signal::derive(move || disabled.get())
         control=node_ref
@@ -133,7 +133,7 @@ pub fn RadioIndicator(
             "unchecked"
           }
         }
-        attr:data-disabled=disabled.clone()
+        attr:data-disabled=disabled
       >
         {children.with_value(|children| children())}
       </Primitive>
@@ -173,7 +173,7 @@ fn BubbleInput(
       .ok()?;
 
       if prev_checked.get() != checked.get() {
-        let mut ev_options = EventInit::new();
+        let ev_options = EventInit::new();
         ev_options.set_bubbles(bubbles.get());
 
         let ev = Event::new_with_event_init_dict("click", &ev_options).ok()?;

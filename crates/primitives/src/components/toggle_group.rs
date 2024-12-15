@@ -314,7 +314,7 @@ pub fn ToggleGroupItem(
     roving_focus,
   } = use_context().expect("ToggleGroupItem must be in a ToggleGroupRoot component");
 
-  let is_pressed_value = value.clone();
+  let is_pressed_value = value;
   let is_pressed = Signal::derive(move || context_value.get().contains(&is_pressed_value.get()));
   let is_disabled = Signal::derive(move || context_disabled.get() || disabled.get());
   let focusable = Signal::derive(move || !is_disabled.get());

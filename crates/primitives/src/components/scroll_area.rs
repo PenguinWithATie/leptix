@@ -341,7 +341,7 @@ fn ScrollAreaScrollbarHover(
         move || {
           set_visible.set(false);
         },
-        Duration::from_millis(context.scroll_hide_delay.get().into()),
+        Duration::from_millis(context.scroll_hide_delay.get()),
       ) else {
         return;
       };
@@ -349,7 +349,7 @@ fn ScrollAreaScrollbarHover(
       timer_handle_value.set_value(Some(timer_handle));
     });
 
-    Owner::current().map(|owner| {
+    if let Some(owner) = Owner::current() {
       owner.with_cleanup(move || {
         if let Some(timeout_handle) = timer_handle_value.get_value() {
           timeout_handle.clear();
@@ -359,7 +359,7 @@ fn ScrollAreaScrollbarHover(
         remove_pointer_enter();
         remove_pointer_leave();
       })
-    });
+    }
   });
 
   let is_present = Signal::derive(move || force_mount.get() || visible.get());
@@ -417,7 +417,7 @@ fn ScrollAreaScrollbarScroll(
       move || {
         send.run(ScrollAreaScrollbarScrollEvent::Hide);
       },
-      Duration::from_millis(context.scroll_hide_delay.get().into()),
+      Duration::from_millis(context.scroll_hide_delay.get()),
     ) else {
       return;
     };
@@ -589,8 +589,8 @@ fn ScrollAreaScrollbarVisible(
             })
             on_pointer_enter=on_pointer_enter
             on_pointer_leave=on_pointer_leave
-            sizes=Signal::derive(move || sizes.get()).into()
-            has_thumb=Signal::derive(move || thumb_ratio.get() > 0. && thumb_ratio.get() < 1.).into()
+            sizes=Signal::derive(move || sizes.get())
+            has_thumb=Signal::derive(move || thumb_ratio.get() > 0. && thumb_ratio.get() < 1.)
             on_thumb_change=Callback::new(move |thumb| {
               thumb_ref.set(Some(thumb));
             })
@@ -633,8 +633,8 @@ fn ScrollAreaScrollbarVisible(
             })
             on_pointer_enter=on_pointer_enter
             on_pointer_leave=on_pointer_leave
-            sizes=Signal::derive(move || sizes.get()).into()
-            has_thumb=Signal::derive(move || thumb_ratio.get() > 0. && thumb_ratio.get() < 1.).into()
+            sizes=Signal::derive(move || sizes.get())
+            has_thumb=Signal::derive(move || thumb_ratio.get() > 0. && thumb_ratio.get() < 1.)
             on_thumb_change=Callback::new(move |thumb| {
               thumb_ref.set(Some(thumb));
             })
@@ -700,7 +700,7 @@ fn ScrollAreaScrollbarX(
 
   let (computed_style, set_computed_style) = signal_local::<Option<CssStyleDeclaration>>(None);
 
-  let effect_sizes = sizes.clone();
+  let effect_sizes = sizes;
   Effect::new(move |_| {
     let Some(node) = node_ref.get() else {
       return;
@@ -817,7 +817,7 @@ fn ScrollAreaScrollbarY(
 
   let (computed_style, set_computed_style) = signal_local::<Option<CssStyleDeclaration>>(None);
 
-  let effect_sizes = sizes.clone();
+  let effect_sizes = sizes;
   Effect::new(move |_| {
     let Some(node) = node_ref.get() else {
       return;
@@ -1023,7 +1023,7 @@ fn ScrollAreaScrollbarImpl(
     };
 
     el.style(("position", "absolute"));
-    el.on(pointerdown, move |ev: PointerEvent| {
+    let _ = el.on(pointerdown, move |ev: PointerEvent| {
       let main_pointer = 0;
 
       if ev.button() != main_pointer {
@@ -1057,10 +1057,10 @@ fn ScrollAreaScrollbarImpl(
 
       handle_drag_scroll(ev);
     });
-    el.on(pointermove, move |ev: PointerEvent| {
+    let _ = el.on(pointermove, move |ev: PointerEvent| {
       handle_drag_scroll(ev);
     });
-    el.on(pointerup, move |ev: PointerEvent| {
+    let _ = el.on(pointerup, move |ev: PointerEvent| {
       let Some(target) = ev.target() else {
         return;
       };
@@ -1073,7 +1073,7 @@ fn ScrollAreaScrollbarImpl(
         _ = el.release_pointer_capture(ev.pointer_id());
       }
 
-      let Some(body) = document().body() else {
+      let Some(_body) = document().body() else {
         return;
       };
 
@@ -1085,10 +1085,10 @@ fn ScrollAreaScrollbarImpl(
 
       rect_ref.set_value(None);
     });
-    el.on(pointerenter, move |_| {
+    let _ = el.on(pointerenter, move |_| {
       on_pointer_enter.run(());
     });
-    el.on(pointerleave, move |_| {
+    let _ = el.on(pointerleave, move |_| {
       on_pointer_leave.run(());
     });
   });
@@ -1201,7 +1201,7 @@ fn ScrollAreaThumbImpl(
     node.style(("width", "var(--primitive-scroll-area-thumb-width)"));
     node.style(("height", "var(--primitive-scroll-area-thumb-height)"));
     // onPointerDownCapture?
-    node.on(pointerdown, move |ev: PointerEvent| {
+    let _ = node.on(pointerdown, move |ev: PointerEvent| {
       let Some(target) = ev.target() else {
         return;
       };
@@ -1218,7 +1218,7 @@ fn ScrollAreaThumbImpl(
         .on_thumb_pointer_down
         .run(Pointer { x, y });
     });
-    node.on(pointerup, move |_| {
+    let _ = node.on(pointerup, move |_| {
       scrollbar_context.on_thumb_pointer_up.run(());
     });
 
@@ -1370,7 +1370,7 @@ fn get_thumb_offset_from_scroll(scroll_position: f64, sizes: &Sizes, direction: 
 fn add_unlinked_scroll_listener(node: HtmlDivElement, handler: Callback<()>) -> Callback<()> {
   let previous_position = StoredValue::new((node.scroll_left(), node.scroll_top()));
 
-  let Pausable { pause, .. } = use_raf_fn(move |_| {
+  let Pausable { .. } = use_raf_fn(move |_| {
     let position = (node.scroll_left(), node.scroll_top());
 
     let is_horizontal_scroll = previous_position.get_value().0 != position.0;

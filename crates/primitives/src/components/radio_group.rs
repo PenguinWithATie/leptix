@@ -1,9 +1,7 @@
 use leptos::{
-  ev::{keydown, keyup},
   html::{self, Button, Div, Span},
   prelude::*,
 };
-use leptos_use::{use_document, use_event_listener};
 use wasm_bindgen::JsCast;
 use web_sys::{FocusEvent, HtmlButtonElement, KeyboardEvent};
 
@@ -74,7 +72,7 @@ pub fn RadioGroupRoot(
         attr:data-disabled=disabled.clone()
         {..}
         role="radiogroup"
-        aria-required=required.clone()
+        aria-required=required
         aria-orientation=move || orientation.get().to_string()
         dir=move || direction.get().to_string()
       >
@@ -107,7 +105,7 @@ pub fn RadioGroupItem(
 
   let is_disabled = Signal::derive(move || disabled.get() || disabled.get());
 
-  let is_checked_value = value.clone();
+  let is_checked_value = value;
   let is_checked = Signal::derive(move || context_value.get() == Some(is_checked_value.get()));
   let is_arrow_key_pressed = StoredValue::new(false);
 
@@ -135,7 +133,7 @@ pub fn RadioGroupItem(
         disabled=is_disabled
         required=required
         checked=is_checked
-        name=name.clone()
+        name=name
         on_check=Callback::new(move |_| on_value_change.run(value.get_value().get()))
         on:keydown=move |ev: KeyboardEvent| {
           on_key_down.run(ev.clone());
